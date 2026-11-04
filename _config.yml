@@ -1,2 +1,4 @@
 title: Podvo
 description: A simple podcast player for Android.
+# Jekyll skips dot-folders, and Android reads the app link keys from /.well-known/assetlinks.json.
+include: [".well-known"]

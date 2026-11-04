@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 288 288" width="288" height="288">
+  <!-- Podvo's logo, from the app's splash_logo.xml (PodPlayLogo.kt's first frame). -->
+  <defs>
+    <linearGradient id="head" gradientUnits="userSpaceOnUse" x1="132" y1="0" x2="300" y2="0">
+      <stop offset="0" stop-color="#F7FAFC"/>
+      <stop offset="1" stop-color="#CBD2E6"/>
+    </linearGradient>
+    <linearGradient id="stem" gradientUnits="userSpaceOnUse" x1="136" y1="0" x2="296" y2="0">
+      <stop offset="0" stop-color="#E8ECF7"/>
+      <stop offset="1" stop-color="#A6AFCB"/>
+    </linearGradient>
+    <clipPath id="tile"><rect x="72" y="72" width="288" height="288"/></clipPath>
+  </defs>
+  <g transform="translate(-72 -72)" clip-path="url(#tile)">
+    <rect x="72" y="72" width="288" height="288" fill="#1C1C1C"/>
+    <rect x="88" y="299" width="22" height="160" rx="11" fill="#D4D9EC"/>
+    <rect x="322" y="299" width="22" height="160" rx="11" fill="#D4D9EC"/>
+    <path fill="url(#stem)" d="M140,347 H292 A4,4 0 0 1 296,351 V407 A60,60 0 0 1 236,467 H196 A60,60 0 0 1 136,407 V351 A4,4 0 0 1 140,347 Z"/>
+    <rect x="124" y="311" width="184" height="21" rx="10.5" fill="#D4D9EC"/>
+    <path fill="url(#head)" d="M208,122 H224 A76,76 0 0 1 300,198 V292 A8,8 0 0 1 292,300 H140 A8,8 0 0 1 132,292 V198 A76,76 0 0 1 208,122 Z"/>
+    <g fill="none" stroke="#000" stroke-width="7">
+      <path d="M155.83,216.02 A22,22 0 1 1 197.17,216.02"/>
+      <path d="M234.83,216.02 A22,22 0 1 1 276.17,216.02"/>
+    </g>
+    <g fill="#000">
+      <rect x="162.5" y="207.94" width="6" height="11.62" rx="3"/>
+      <rect x="173.5" y="198" width="6" height="31.5" rx="3"/>
+      <rect x="184.5" y="209.09" width="6" height="9.32" rx="3"/>
+      <rect x="241.5" y="207.94" width="6" height="11.62" rx="3"/>
+      <rect x="252.5" y="204.7" width="6" height="18.1" rx="3"/>
+      <rect x="263.5" y="206.78" width="6" height="13.94" rx="3"/>
+    </g>
+    <path fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M171,258 L185,258 L197,281.93 L205,240.31 L222,274.67 L236,249.46 L245,258 L259,258"/>
+  </g>
+</svg>

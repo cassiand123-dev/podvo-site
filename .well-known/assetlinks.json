@@ -1,0 +1,16 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.podplay.app",
+      "sha256_cert_fingerprints": [
+        "1A:FB:B0:3A:4E:18:16:86:60:88:67:87:6D:98:22:5E:0A:CE:E9:5D:F3:92:2A:EE:E7:97:9E:72:DA:4B:FF:EF",
+        "BF:3C:94:4C:5C:D8:59:8E:BA:20:4F:82:44:DA:F6:49:CA:CA:F3:06:57:F1:47:7B:98:B1:FC:BF:46:6F:77:25",
+        "0F:10:D5:32:08:33:85:E7:91:22:8C:5A:C0:AC:50:D4:59:C2:64:FA:F0:1D:BD:C4:77:1C:8B:5B:DC:00:31:72",
+        "DA:73:A5:3B:F1:8C:66:6C:29:68:37:C8:61:65:FF:FF:84:4B:3C:36:29:F2:83:A3:88:B6:36:85:CA:53:62:9A",
+        "A8:FE:FD:36:8B:00:5C:86:29:E5:20:12:C5:A4:42:6F:17:AE:91:E5:59:98:80:5F:2D:F9:DD:6C:7D:79:5E:97"
+      ]
+    }
+  }
+]

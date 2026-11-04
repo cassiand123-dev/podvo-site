@@ -1,0 +1,249 @@
+/* The app's Charcoal theme (theme/Color.kt): its Amber accent, and the logo's silver. */
+@font-face {
+  font-family: "DM Sans";
+  src: url("/share/fonts/dmsans_400.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/share/fonts/dmsans_700.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+  --ground: #1C1C1C;      /* CharcoalBackground */
+  --raised: #292929;      /* CharcoalSurface */
+  --ink: #FFFFFF;
+  --muted: rgba(255, 255, 255, 0.6);
+  --silver: #D4D9EC;      /* the logo's stand */
+  --silver-deep: #A6AFCB; /* the logo's shaded body */
+  --amber: #F5BC62;       /* Charcoal's Amber accent (CharcoalCtaColor.AMBER) */
+  --amber-deep: #E0A74E;  /* and its secondary */
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  background:
+    radial-gradient(120% 60% at 50% 0%, rgba(245, 188, 98, 0.10), transparent 60%),
+    var(--ground);
+  color: var(--ink);
+  font: 17px/1.45 "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  width: 100%;
+  max-width: 440px;
+  min-height: 100vh;
+  padding: 40px 24px 28px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* ---- The hero: the talking logo over a waveform -------------------------------------- */
+
+.hero {
+  position: relative;
+  width: 100%;
+  height: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wave {
+  position: absolute;
+  inset: 0 -24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
+}
+
+.wave span {
+  flex: 0 0 5px;
+  height: 12px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--amber), var(--amber-deep));
+  transform-origin: center;
+  animation: breathe 1.6s ease-in-out infinite alternate;
+}
+
+.wave span.gap {
+  visibility: hidden;
+}
+
+@keyframes breathe {
+  from { transform: scaleY(0.35); opacity: 0.55; }
+  to { transform: scaleY(1); opacity: 1; }
+}
+
+.logo {
+  position: relative;
+  width: 132px;
+  height: 132px;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(212, 217, 236, 0.18),
+    0 16px 36px rgba(0, 0, 0, 0.6);
+}
+
+/* ---- Words ---------------------------------------------------------------------------- */
+
+.name {
+  margin-top: 6px;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--silver);
+}
+
+h1 {
+  font-size: 26px;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  margin: 24px 0 10px;
+}
+
+p {
+  margin: 0;
+}
+
+#lede {
+  color: var(--muted);
+  text-wrap: balance;
+}
+
+/* ---- Actions -------------------------------------------------------------------------- */
+
+.actions {
+  width: 100%;
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.open {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 17px 24px;
+  border-radius: 999px;
+  background: var(--amber);
+  color: var(--ground);
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.open svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+.open:active {
+  transform: scale(0.98);
+}
+
+/* The badge PNG carries its own clear space, as Google's badge rules ask. */
+.badge {
+  display: block;
+  line-height: 0;
+}
+
+.badge img {
+  width: 220px;
+  height: auto;
+}
+
+.open:not([hidden]) + .badge img {
+  width: 190px;
+}
+
+/* ---- Notes and footer ----------------------------------------------------------------- */
+
+.note {
+  margin-top: 18px;
+  font-size: 15px;
+  color: var(--muted);
+}
+
+.note button,
+footer a {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--silver);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+#other {
+  overflow-wrap: anywhere;
+}
+
+footer {
+  width: 100%;
+  margin-top: auto;
+  padding-top: 44px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.trace {
+  display: block;
+  width: 100%;
+  height: 28px;
+  margin-bottom: 18px;
+}
+
+.trace path {
+  fill: none;
+  stroke: var(--silver-deep);
+  stroke-opacity: 0.45;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.legal {
+  margin-top: 8px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave span {
+    animation: none;
+  }
+}

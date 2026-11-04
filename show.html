@@ -1,0 +1,103 @@
+<!doctype html>
+<!--
+  A shared Podvo link: https://podvo.co.uk/show#feed=<the channel's feed address>, with
+  &episode=<the episode's audio address> when it is an episode.
+
+  A phone with Podvo opens these links in the app and never shows this page (Android checks
+  /.well-known/assetlinks.json for that). Everyone else lands here. On Android the page hands
+  over to an installed Podvo through podplay://show, which every version opens; without the
+  app it points to Google Play. The feed is in the fragment, which browsers never send to the
+  server, so this site only ever sees a request for /show.
+
+  The look is the app's Charcoal theme and its Amber accent. The logo is the app's own
+  (PodPlayLogo.kt): its eyes are level meters and its mouth a waveform, and they move the
+  same way here (share/show.js).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'self'; font-src 'self'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#1C1C1C">
+<title>Shared from Podvo</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Podvo">
+<meta property="og:title" content="Shared from Podvo">
+<meta property="og:description" content="A podcast to open in Podvo, the podcast app for Android.">
+<meta property="og:image" content="https://podvo.co.uk/share/podvo-icon-512.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/share/podvo-logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/share/podvo-icon-192.png">
+<link rel="stylesheet" href="/share/show.css">
+</head>
+<body>
+<main>
+  <div class="hero" aria-hidden="true">
+    <div class="wave" id="wave"></div>
+    <svg class="logo" id="logo" viewBox="0 0 288 288">
+      <defs>
+        <linearGradient id="head" gradientUnits="userSpaceOnUse" x1="132" y1="0" x2="300" y2="0">
+          <stop offset="0" stop-color="#F7FAFC"/>
+          <stop offset="1" stop-color="#CBD2E6"/>
+        </linearGradient>
+        <linearGradient id="stem" gradientUnits="userSpaceOnUse" x1="136" y1="0" x2="296" y2="0">
+          <stop offset="0" stop-color="#E8ECF7"/>
+          <stop offset="1" stop-color="#A6AFCB"/>
+        </linearGradient>
+        <clipPath id="tile"><rect x="72" y="72" width="288" height="288"/></clipPath>
+      </defs>
+      <g transform="translate(-72 -72)" clip-path="url(#tile)">
+        <rect x="72" y="72" width="288" height="288" fill="#1C1C1C"/>
+        <rect x="88" y="299" width="22" height="160" rx="11" fill="#D4D9EC"/>
+        <rect x="322" y="299" width="22" height="160" rx="11" fill="#D4D9EC"/>
+        <path fill="url(#stem)" d="M140,347 H292 A4,4 0 0 1 296,351 V407 A60,60 0 0 1 236,467 H196 A60,60 0 0 1 136,407 V351 A4,4 0 0 1 140,347 Z"/>
+        <rect x="124" y="311" width="184" height="21" rx="10.5" fill="#D4D9EC"/>
+        <path fill="url(#head)" d="M208,122 H224 A76,76 0 0 1 300,198 V292 A8,8 0 0 1 292,300 H140 A8,8 0 0 1 132,292 V198 A76,76 0 0 1 208,122 Z"/>
+        <g id="eye-left">
+          <path fill="none" stroke="#000" stroke-width="7" d="M155.83,216.02 A22,22 0 1 1 197.17,216.02"/>
+          <rect class="bar" x="162.5" y="207.94" width="6" height="11.62" rx="3"/>
+          <rect class="bar" x="173.5" y="198" width="6" height="31.5" rx="3"/>
+          <rect class="bar" x="184.5" y="209.09" width="6" height="9.32" rx="3"/>
+        </g>
+        <g id="eye-right">
+          <path fill="none" stroke="#000" stroke-width="7" d="M234.83,216.02 A22,22 0 1 1 276.17,216.02"/>
+          <rect class="bar" x="241.5" y="207.94" width="6" height="11.62" rx="3"/>
+          <rect class="bar" x="252.5" y="204.7" width="6" height="18.1" rx="3"/>
+          <rect class="bar" x="263.5" y="206.78" width="6" height="13.94" rx="3"/>
+        </g>
+        <path id="mouth" fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" d="M171,258 L185,258 L197,281.93 L205,240.31 L222,274.67 L236,249.46 L245,258 L259,258"/>
+      </g>
+    </svg>
+  </div>
+  <p class="name">Podvo</p>
+
+  <h1 id="title">Someone shared a podcast channel with you</h1>
+  <p id="lede">Podvo is a podcast app for Android.</p>
+
+  <div class="actions">
+    <a id="open" class="open" href="#" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.52.85l10.4-6.5a1 1 0 0 0 0-1.7L9.52 4.65A1 1 0 0 0 8 5.5z"/></svg>
+      Open in Podvo
+    </a>
+    <a id="play" class="badge" href="https://play.google.com/store/apps/details?id=com.podplay.app">
+      <img src="/share/google-play-badge.png" alt="Get it on Google Play" width="646" height="250">
+    </a>
+  </div>
+
+  <p id="after" class="note" hidden>Once Podvo is installed, tap the link again and the channel opens in the app.</p>
+  <p id="other" class="note" hidden>Using another podcast app? <button id="copy" type="button">Copy the feed address</button></p>
+
+  <footer>
+    <svg class="trace" viewBox="0 0 320 28" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,14 H118 L128,14 L136,24 L142,4 L152,22 L160,8 L166,14 L176,14 L182,19 L188,9 L194,14 H320"/>
+    </svg>
+    <p><a href="/">About Podvo</a> · <a href="/privacy/">Privacy</a></p>
+    <p class="legal">Google Play and the Google Play logo are trademarks of Google LLC.</p>
+  </footer>
+</main>
+<script src="/share/show.js"></script>
+</body>
+</html>
