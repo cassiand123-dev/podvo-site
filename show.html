@@ -6,8 +6,10 @@
   A phone with Podvo opens these links in the app and never shows this page (Android checks
   /.well-known/assetlinks.json for that). Everyone else lands here. On Android the page hands
   over to an installed Podvo through podplay://show, which every version opens; without the
-  app it points to Google Play. The feed is in the fragment, which browsers never send to the
-  server, so this site only ever sees a request for /show.
+  app it points to Google Play, passing the link on as Play's install referrer, so a fresh
+  install opens what was shared. The names are in the fragment, which browsers never send to
+  the server, so this site only ever sees a request for /show; the Google Play link does
+  carry them, to Google.
 
   The look is the app's Charcoal theme and its Amber accent. The logo is the app's own
   (PodPlayLogo.kt): its eyes are level meters and its mouth a waveform, and they move the

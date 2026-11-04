@@ -6,6 +6,7 @@
   "use strict";
 
   var APP = "com.podplay.app";
+  var PLAY = "https://play.google.com/store/apps/details?id=" + APP;
 
   function byId(id) {
     return document.getElementById(id);
@@ -64,6 +65,10 @@
     var title = byId("title");
     var lede = byId("lede");
     var canOpen = Boolean(channel && android && !channel.appMissing);
+
+    // Google Play hands the referrer to the app it installs, so a fresh install opens what was
+    // shared (the app's InstallReferral.kt) instead of starting from nothing.
+    play.href = channel ? PLAY + "&referrer=" + encodeURIComponent(linkPairs(channel)) : PLAY;
 
     open.hidden = !canOpen;
     open.classList.toggle("primary", canOpen);
