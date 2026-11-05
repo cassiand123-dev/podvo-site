@@ -4,14 +4,16 @@ title: Privacy Policy for Podvo
 
 # Privacy Policy for Podvo
 
-**Last Updated:** October 9, 2026
+**Last Updated:** November 5, 2026
 
 Podvo ("we", "our", "us") is a podcast player for Android and iOS. This policy explains
 exactly what the app stores, what it sends over the network, and to whom. It is written to
 match the app's actual behaviour — if you find a discrepancy, treat it as a bug and tell us.
 
-There are no user accounts. You never register, log in, or give us your name or email to
-use Podvo.
+There are no Podvo accounts. You never register with us or give us your name or email to
+use Podvo. If you choose to turn on **Sync with Google Drive** (Section 2a), you sign in
+with your own Google account and your library is kept in your own Google Drive, not on our
+servers.
 
 ---
 
@@ -19,7 +21,8 @@ use Podvo.
 
 | What | Where it goes |
 |---|---|
-| Subscriptions, queue, playback positions, history, settings, downloads, recommendation listening signals | Stay on your device |
+| Subscriptions, queue, playback positions, history, settings, downloads, recommendation listening signals | Stay on your device, unless you turn on sync (next row) |
+| **Only if you turn on Sync with Google Drive: subscriptions, playlists, queue, Listen Later, played episodes, resume positions, the episode in the player, playback settings, and this device's model name** | **Saved in your own Google Drive, in a hidden folder only Podvo can open. Never sent to us** |
 | Podcast feeds, artwork, episode audio | Fetched directly from the publisher's servers (**except feeds in the web app** — see Section 4a) |
 | **Ad-skip lookups (podcast name, episode title, episode audio URL, episode description, country, install ID)** | **Sent to our ad-analysis service, `api.dawncast.uk`** |
 | **Podcast searches (search text and country code)** | **Sent to Apple Podcasts search** |
@@ -32,12 +35,15 @@ use Podvo.
 | **Finding a guest's episodes on other shows (guest name only)** | **Sent to Apple Podcasts search; if Apple has no results, the search service fallback may receive the name** |
 | **Guest photos & bios (guest name/public person ID only)** | **Sent to Wikipedia and Wikidata (Wikimedia Foundation)** |
 | Snips (the moments you save from an episode) | Stay on your device |
+| **Channel and episode links you share (the channel's feed address and the episode's audio address, after the `#`)** | **Go only where you send them. Opening one loads a page from our website, `podvo.co.uk`, which never receives those addresses** |
 | Crash reports | Written to your device only; sent nowhere unless you explicitly share one |
-| Casting / DLNA discovery | Stays on your local Wi-Fi network |
+| Casting / DLNA discovery, and switching a TV on to cast to it | Stays on your local Wi-Fi network |
 
-The bold rows highlight requests explained in more detail below. Section 3
+The bold rows highlight requests explained in more detail below. Section 2a covers
+Google Drive sync, which is off unless you turn it on; Section 3
 covers ad-skip in full (and you can turn it off); Section 4 covers the search fallback;
-Section 4a covers the feed proxy, which **only affects the web app**; Section 5 covers
+Section 4a covers the feed proxy, which **only affects the web app**; Section 4b covers
+shared links; Section 5 covers
 smart topics, which are **automatically enriched when the service is available**; Section 5a covers
 guest discovery and photos, which are **always enabled**.
 
@@ -64,10 +70,81 @@ The following is written to your device's private app storage and is not transmi
   and hands it to your own share sheet; it is never uploaded to us.
 * **Topic tags** — topics found locally and returned by the topic service (Section 5)
   are cached here.
+* **TVs you've cast to** — if a TV offers it, its name, its address on your home network
+  and the network address Podvo uses to switch it on from standby. Switching it on sends a
+  "wake" signal on your home network only.
 * **Crash reports** — see Section 7.
 
 You can erase all of it at any time via your device settings (Android: **Settings > Apps >
-Podvo > Storage > Clear Data**; iOS: delete the app). Uninstalling removes everything.
+Podvo > Storage > Clear Data**; iOS: delete the app). Uninstalling removes everything on
+the device. A copy you chose to keep in Google Drive (Section 2a) is deleted separately.
+
+---
+
+## 2a. Sync with Google Drive (optional, Android)
+
+Sync keeps your library the same on each Android device where you turn it on. It is off
+until you turn it on under **Settings > Account & subscriptions > Sync with Google Drive**.
+There is no Podvo server involved: your library goes from your device to your own Google
+Drive, and from there to your other devices.
+
+### Signing in
+
+Turning sync on opens Google's own sign-in screen, where you choose an account, and then
+Google's consent screen, where you allow Podvo to keep its own data in your Google Drive
+(the `drive.appdata` permission). Podvo asks for nothing else. It cannot see, open or
+change any other file in your Drive.
+
+Google tells Podvo which account you chose: its email address, name and Google's ID for
+the account. Podvo keeps these on your device, to show which account is syncing, and
+does not send them anywhere. Podvo stores no password or long-lived sign-in token; Google
+Play services supplies a short-lived access key each time Podvo syncs.
+
+### What is synced
+
+* the podcasts you follow
+* your playlists (including smart playlist rules, when you added each episode, and the
+  order you chose for each playlist) and Listen Later
+* your Up Next queue
+* which episodes you have played, and where you stopped in each one
+* the episode in the player (the one the mini player shows), so another device can carry
+  on with it
+* playback and skipping settings: speeds, skip intervals, autoplay, trim silence, voice
+  boost, ad and intro skipping, and per-podcast overrides of these
+* a name for each device, such as "Pixel 8", and a random ID Podvo creates for it, so
+  each device keeps its own file
+
+Podvo syncs shortly after you change something, when you leave the app, and about once
+a minute while the app is open, to pick up changes from your other devices.
+
+Episode and podcast details are synced as published in the feed (title, show, audio and
+artwork addresses, duration, date). Show notes and descriptions are not: each device reads
+them from the feed itself.
+
+**Not synced:** downloaded audio, listening history, listening statistics, recommendation
+signals, snips, your answers to the interest questions, appearance settings, download and
+data-saving settings, notifications, the ad-skip install ID, and anything about ad-skip
+lookups.
+
+### Where it is kept
+
+Each device keeps one small file in your Google Drive's **app data folder**. This is a
+hidden folder that only Podvo can open; it does not appear among your Drive files, and
+it counts towards your Google storage (usually well under a megabyte). Files are sent over
+an encrypted connection and stored by Google under the
+[Google Privacy Policy](https://policies.google.com/privacy). They are not end-to-end
+encrypted. **We never receive, see or store any of it.**
+
+### Turning it off and deleting it
+
+* **Settings > Sync with Google Drive > Turn off sync** stops sync on that device. Your
+  library stays on the device, and the copy in Drive stays for your other devices.
+* Choosing **Also delete it from Google Drive** there deletes every device's copy from
+  your Drive and withdraws Podvo's access to your Drive, which stops sync on all your
+  devices.
+* You can also delete the copy yourself in Google Drive on the web: **Settings > Manage
+  apps > Podvo > Options > Delete hidden app data**. You can withdraw Podvo's access to
+  your Google account at [myaccount.google.com/permissions](https://myaccount.google.com/permissions).
 
 ---
 
@@ -94,6 +171,11 @@ Podvo prepares an episode for the Clips discovery feed, the app sends the follow
 * a **country code** (used to select the right regional ad data)
 * an **install ID** — see below
 * an **entitlement level** — currently always `early_access`
+* a **read-only flag**, only when the app is browsing (Clips, Snips) and wants an analysis
+  that already exists. It tells the service not to start a new one.
+* a **fingerprint format** (`envelope_v1`), which says which form of audio fingerprint this
+  version of the app can read. It is the same fixed value from every install and says
+  nothing about you or what you listen to.
 
 The service replies with the positions of ads in that episode, chapter markers, and, where
 one exists, the matching YouTube video ID for the episode.
@@ -135,6 +217,18 @@ Like any web server, ours keeps technical logs so we can run, secure and fix the
 They can include the time, your IP address and the address requested, and for ad-skip the
 podcast name, episode title and country. They do not include your install ID. We use them
 only to operate the service and keep them only as long as that needs.
+
+The service also keeps limited operational statistics in its private control booth.
+For successful signed app requests, it converts the install header already sent by
+the app into a keyed hash that changes each UTC day, to count active installations.
+General service requests use a separate daily keyed hash of the network address.
+These metrics store endpoint templates, request and error counts, and heuristic
+signals of automated traffic; they do not store raw install IDs, raw IP addresses,
+user-agent strings, request bodies, query strings, or episode URLs. Daily activity
+records expire after 30 days and the daily hashes are not joined across days.
+Installation counts are not a count of people or user accounts. Model-cost records
+contain public episode/feed identifiers and token usage, without listener identifiers,
+prompts, or transcripts. See the [service operations disclosure](https://api.dawncast.uk/privacy/operations).
 
 ### Pricing
 
@@ -186,9 +280,17 @@ mode skips these optional discovery requests on a metered connection.
 Daily Mix also uses listening signals stored on your device to recommend new episodes
 from shows you have heard without following them. It can read a short RSS page from
 up to six such shows (two in Reduced data-saving mode), sharing the device's discovery
-cache with Home. Publishers receive the usual feed request and IP address; we do not
+cache with Home. While you follow no shows, the page for the two you have heard most is
+longer (twenty episodes, not four), for Home's "More from" shelves. Publishers receive the usual feed request and IP address; we do not
 send your listening time, completion history or personalised scores with that request.
 Maximum data-saving mode skips these optional requests on a metered connection.
+
+On Android, channels whose new-episode bell you switch on are checked for new releases
+about every 30 minutes. Each check asks the publisher's server whether the feed has changed
+(a request for its headers only) and reads the newest few episodes only when it has. These
+requests go straight to the publisher, like any feed request, with the usual IP address and
+request headers, and nothing is sent to us. Channels without a bell are checked only by the
+ordinary background refresh, every six hours.
 
 To suggest other episodes featuring guests from your recent listening, Home can search for
 up to five guest names in Apple's public podcast directory. If Apple has no results,
@@ -258,6 +360,39 @@ which fetches feeds directly from the publisher.
 
 ---
 
+## 4b. Shared Channel and Episode Links
+
+When you share a channel, Podvo gives you a link to our website,
+`https://podvo.co.uk/show#feed=…`, which carries the channel's feed address. A shared
+episode's link also carries the address of the episode's audio file
+(`#feed=…&episode=…`), which is how the app finds it in the feed. Sharing sends nothing
+anywhere by itself: the link goes only where you send it, through the app you choose.
+
+A phone with Podvo opens the link in the app, which loads the channel or episode from its
+publisher as usual. Anywhere else the link opens a page on podvo.co.uk that says what it is
+and links to Google Play. On Android that page also hands the link to Podvo when it is
+installed.
+
+**What is sent:** both addresses sit after the `#` in the link, a part that web browsers
+keep to themselves and never send to a website. Opening the link in a browser sends
+podvo.co.uk only a request for the page, with what any web page receives: the browser's IP
+address and user agent. GitHub Pages hosts podvo.co.uk and keeps its own technical logs of
+those requests (Section 6). The page does not fetch the feed, set cookies or use analytics.
+Its "Copy the feed address" button copies the address on your own device.
+
+**Installing from the link:** the page's Google Play button passes the same addresses to
+Google Play, inside the Play Store link, so Podvo can open the channel or episode once it is
+installed. Google Play receives them as part of that link and hands them to Podvo on the
+phone (Play's "install referrer"). Podvo reads them once, on its first start, and sends them
+nowhere. A Podvo installed any other way finds nothing there.
+
+**What is stored:** nothing, by us.
+
+Anyone you send a link to can read the addresses in it. A private feed from a paid
+membership can carry your personal key in its addresses, so share those with care.
+
+---
+
 ## 5. Smart Topics
 
 Smart playlists and podcast pages can filter a show by subject — "only the science episodes
@@ -272,37 +407,59 @@ service cannot provide a result.
 
 When you open a podcast's full catalogue, select shows in a smart-playlist editor, or the
 app refreshes shows used by a topic-filtered playlist, the app can send the following to
-`https://api.dawncast.uk/library/analyse`:
+`https://api.dawncast.uk/library/analyse` for cached chapter information and
+`https://api.dawncast.uk/library/topics` for shared catalogue topics:
 
 * the **podcast's feed URL** and **name**
-* up to 400 **published chapter titles**, when episode fallback analysis is needed and
-  the feed contains them; requests for cached chapters alone do not send these titles
-* when local coverage needs improvement, up to 150 episodes without a resolved local guest
-  decision: the **episode ID**, **title**, and first 500 characters of its description
+* batches of up to 40 **titles** with temporary batch identifiers, and up to 5,000 characters
+  of each public description, to classify episodes
+* a sample of up to 300 episodes covering recurring multipart series and the span of the
+  catalogue, with titles and up to 500 description characters, to establish a show-specific
+  topic structure
+
+The catalogue pass can include the whole available back catalogue in successive batches.
+It runs within a shared service budget; local processing remains the fallback. Cached
+chapter requests do not trigger transcription or audio analysis.
+
+While a channel is open, the app checks for corrected server topics at most once every
+five minutes. This check sends only the feed URL and show name, forbids AI processing,
+and returns a cache revision. When it changes, cached assignments are downloaded again
+and replace obsolete server topics on the device; unchanged cached results are reused.
 
 All of it is already public information from the podcast's RSS feed. These requests carry
 no install ID, account or listening history. They identify the show being categorised.
 
 ### What comes back
 
-A short list of topics and which apply to each unresolved episode, plus guest names when
-found. The response can also include chapter titles already generated and cached when
-that podcast's episodes were analysed previously; these let the app recognise additional subjects such as cosmology
-without sending the rest of your local episode list. The result is stored on your device.
+A show-specific topic structure and episode assignments. Interview domains can be based
+on an explicitly stated guest profession. The service and device cache retain whether an
+assignment comes from a guest biography or an episode subject; the topic browser combines
+both under the same short label. Explicit multipart series can be grouped from their titles
+without an AI call.
+The response can also include chapter titles already generated and cached when that
+podcast's episodes were analysed previously. Results are cached on the backend for reuse
+across listeners and stored on your device.
+
+Public metadata may be sent to OpenAI for this classification; no audio is sent by this
+feature. Changed titles or descriptions, or a deliberate topic-quality upgrade, may be
+classified again within the shared processing budget.
 
 ### Retention
 
 Topic classification is cached per episode, not per listener, so the next person to filter
 the same show gets an instant answer without us re-analysing it. These requests are not
-associated with an install ID.
+associated with an install ID. The service also keeps the public titles and descriptions
+it receives, so that a broad topic can later be split into more specific ones (for example
+Science into Space and Mathematics) without the app sending the catalogue again. This is
+the same public feed text described above, never anything about you.
 
 ### Local storage and repeat requests
 
 Results are stored on your device. An already refined index is reused until the catalogue
 changes or the index is rebuilt. Failed or incomplete requests may be tried again on a
 later visit or refresh, with a minimum 15-minute interval per show on that device. The
-service also records aggregate daily model-attempt and token counts, without listener
-identifiers, to control processing costs. The app does not submit every subscription for topic
+service records model-attempt token usage and monthly spending reservations, without
+listener identifiers, to enforce a shared processing budget. The app does not submit every subscription for topic
 analysis during an ordinary background refresh; background enrichment is limited to shows
 used by topic-filtered playlists.
 
@@ -350,6 +507,9 @@ Existing photos and bios remain available if a refresh fails.
 
 ## 6. Connections to Third Parties
 
+* **Google (Sign in with Google and Google Drive).** Only if you turn on sync (Section 2a).
+  Google signs you in and stores your synced library in your own Drive. Google's privacy
+  policy governs that data. Nothing about it reaches us.
 * **Wikimedia Foundation (Wikipedia and Wikidata).** Guest photos & bios are always
   enabled (Section 5a). Receives a guest name/page title, its linked
   public Wikidata item ID and your IP address; no episode, podcast or listening history
@@ -367,6 +527,14 @@ Existing photos and bios remain available if a refresh fails.
 * **YouTube.** Video podcast playback uses YouTube's official embedded player. Your
   interaction with it is governed by [YouTube's Terms of Service](https://www.youtube.com/t/terms)
   and the [Google Privacy Policy](https://policies.google.com/privacy).
+* **Google Play (install referrer).** On its first start Podvo asks the Play Store app on
+  your phone how it was installed. Only an install from a shared link's page answers with
+  anything: that link's addresses (Section 4b). Podvo uses them to open what was shared and
+  sends them nowhere.
+* **GitHub (GitHub Pages).** Hosts our website, podvo.co.uk, including the page a shared
+  link opens (Section 4b). Like any web host it sees the IP address and browser details of
+  whoever opens the site, and GitHub's privacy statement governs that data. It never
+  receives the addresses in a shared link.
 * **Google Cast, DLNA and AirPlay.** Discovering and controlling speakers or TVs happens
   entirely over your local Wi-Fi network. Nothing about it reaches us.
 
@@ -397,9 +565,10 @@ Android permissions Podvo requests, and why:
 | `ACCESS_NETWORK_STATE`, `ACCESS_WIFI_STATE` | Detect Wi-Fi vs mobile data for the "download on Wi-Fi only" rule |
 | `CHANGE_WIFI_MULTICAST_STATE` | Discover Cast and DLNA devices on your local network (SSDP multicast) |
 | `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_MEDIA_PLAYBACK` | Keep audio playing when the app is in the background |
-| `POST_NOTIFICATIONS` | Show the playback notification and its controls (Android 13+) |
+| `POST_NOTIFICATIONS` | Show the playback notification and its controls, and alerts for new episodes from channels you choose (Android 13+) |
 | `WAKE_LOCK` | Prevent the device sleeping mid-episode |
 | `RECEIVE_BOOT_COMPLETED` | Re-register the background feed refresh after a restart |
+| `BIND_GET_INSTALL_REFERRER_SERVICE` | Ask the Play Store app once, on the first start, whether Podvo was installed from a shared link (Section 4b) |
 
 Podvo requests no access to contacts, location, camera, microphone, or your files.
 
@@ -414,9 +583,13 @@ information from them.
 
 ## 10. Your Rights
 
-Podvo has no accounts, and our servers keep no record linked to you or your install ID,
-so there is no account to access, export, or delete. Everything about your listening is on
-your device: clear the app's data or uninstall it to remove it.
+Podvo has no accounts, so there is no account to access, export, or delete. Listening
+history and preferences remain on your device: clear the app's data or uninstall it
+to remove them. The service keeps the technical logs and limited daily pseudonymous
+operational statistics described in Section 3; it does not store the raw install ID
+in its metrics system.
+If you turned on sync, your library is also in your own Google Drive, where you can
+delete it at any time (Section 2a).
 
 If you are in the UK/EU and want to exercise a right regarding our server's technical logs
 (Section 3), contact us and we will help.
