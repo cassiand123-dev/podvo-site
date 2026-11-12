@@ -4,7 +4,7 @@ title: Privacy Policy for Podvo
 
 # Privacy Policy for Podvo
 
-**Last Updated:** November 5, 2026
+**Last Updated:** November 12, 2026
 
 Podvo ("we", "our", "us") is a podcast player for Android and iOS. This policy explains
 exactly what the app stores, what it sends over the network, and to whom. It is written to
@@ -153,7 +153,9 @@ encrypted. **We never receive, see or store any of it.**
 Podvo can automatically skip advertising inside episodes. Doing this requires analysis
 that cannot run on your phone, so the app asks our ad-analysis service about the episode
 you are about to play. To make queue transitions seamless, it also asks about the episode
-at the front of Up Next while the current episode is still playing. The Clips feed uses the
+at the front of Up Next while the current episode is still playing. Opening an episode's
+page asks too, read-only: it shows the chapters and summaries of an episode someone has
+already played, and never starts an analysis of one nobody has. The Clips feed uses the
 same analysis to find short moments; to make Clips useful for new listeners, it can also ask
 about a small, fixed selection of current episodes from popular channels that you have not
 followed or played. If you answered the optional "What do you like?" questions, it can also
@@ -161,8 +163,9 @@ ask about recent episodes from shows those answers suggested.
 
 ### What is sent
 
-When ad-skip is enabled and you play, download, place an episode at the front of Up Next, or
-Podvo prepares an episode for the Clips discovery feed, the app sends the following to
+When ad-skip is enabled and you play, download, place an episode at the front of Up Next,
+open an episode's page, or Podvo prepares an episode for the Clips discovery feed, the app
+sends the following to
 `https://api.dawncast.uk/ads`:
 
 * the **podcast name** and **episode title**
@@ -171,14 +174,36 @@ Podvo prepares an episode for the Clips discovery feed, the app sends the follow
 * a **country code** (used to select the right regional ad data)
 * an **install ID** — see below
 * an **entitlement level** — currently always `early_access`
-* a **read-only flag**, only when the app is browsing (Clips, Snips) and wants an analysis
-  that already exists. It tells the service not to start a new one.
+* a **read-only flag**, only when the app is browsing (an episode's page, Clips, Snips) and
+  wants an analysis that already exists. It tells the service not to start a new one.
+* a snip's **start and end times**, only when a snip you saved has no captions yet and the app
+  asks for the words spoken in it, or when you open a snip's length to crop it on its words
+  (then with half a minute either side). It tells the service which moment of the episode
+  you kept.
+* the **stretch of the episode around where you are listening**, only while the full player
+  is open, so the service can send the transcript of that part: about ten minutes from a
+  minute behind the playhead, asked for again as you listen on or jump elsewhere. If you rest
+  a finger on the scrubber somewhere the app has no words for yet, it asks for about three
+  minutes around that point, and a snip you are making can ask for the half minute either
+  side of it. These tell the service roughly where in the episode you are. These asks also
+  carry a fixed **words-only flag** (`captions_only`), which tells the service to reply with
+  just the words and chapter times, so the reply is small. It is the same value from every
+  install and says nothing more about you.
+* the **start and end times of up to three clips** the Clips page cut from the episode, only
+  when a clip on screen has no captions yet. They are worked out on your phone from the
+  episode's chapters, so they tell the service which moments the app picked to show you.
 * a **fingerprint format** (`envelope_v1`), which says which form of audio fingerprint this
   version of the app can read. It is the same fixed value from every install and says
   nothing about you or what you listen to.
 
-The service replies with the positions of ads in that episode, chapter markers, and, where
-one exists, the matching YouTube video ID for the episode.
+The service replies with the positions of ads in that episode, chapter markers, captions
+(the words spoken in its clips and snips, and in the part of the episode open in the player,
+with their timings), and, where one exists, the
+matching YouTube video ID for the episode. To make captions, the service sends the episode's
+public audio for transcription, once per episode, to Deepgram, or to DeepInfra, Groq or
+OpenAI when that one can't answer. To find the ads, chapters, hosts and guests, it sends the
+episode's public transcript and description to AI text models from OpenAI and Anthropic
+(Claude). Nothing about you is sent with any of these.
 
 Audiobooks are never sent. Chapters of an audiobook (including every LibriVox book) carry no
 ads, so Podvo makes no ad-skip lookup for them, and they are also left out of the show
@@ -196,7 +221,14 @@ The install ID is a random number generated on your device the first time ad-ski
 is **not** derived from your hardware, your Google/Apple account, or any advertising
 identifier. It is sent so the service can tell one installation from another, for rate
 limiting and, when ad-skip becomes a paid feature, to recognise a valid subscription.
-Today the service does not store it.
+The service does not store it as sent. So that no one installation can read transcripts
+faster than anyone listens to them, it keeps, for three days, a keyed hash of the install ID
+together with the episode and which parts of that episode's transcript were sent to it, and
+keyed hashes that change each UTC day of the install ID and of the network address, with how
+much transcript each was sent that day. So that people sharing one network address (a
+household, or a mobile carrier's shared address) don't limit each other, it also keeps a
+keyed hash of the install ID with the first and last day it read a transcript, deleted 30
+days after the last. Transcript requests without an install ID get no transcript.
 
 You can view it and generate a fresh one at any time under **Settings > Ad skipping >
 Install ID**. Resetting it severs the link between your earlier and later lookups. Clearing app
@@ -226,7 +258,9 @@ These metrics store endpoint templates, request and error counts, and heuristic
 signals of automated traffic; they do not store raw install IDs, raw IP addresses,
 user-agent strings, request bodies, query strings, or episode URLs. Daily activity
 records expire after 30 days and the daily hashes are not joined across days.
-Installation counts are not a count of people or user accounts. Model-cost records
+Installation counts are not a count of people or user accounts. The transcript allowance
+records described under "The install ID" are kept for three days and then deleted, except
+the first and last day an installation read a transcript, kept until 30 days after the last. Model-cost records
 contain public episode/feed identifiers and token usage, without listener identifiers,
 prompts, or transcripts. See the [service operations disclosure](https://api.dawncast.uk/privacy/operations).
 
@@ -440,8 +474,8 @@ The response can also include chapter titles already generated and cached when t
 podcast's episodes were analysed previously. Results are cached on the backend for reuse
 across listeners and stored on your device.
 
-Public metadata may be sent to OpenAI for this classification; no audio is sent by this
-feature. Changed titles or descriptions, or a deliberate topic-quality upgrade, may be
+Public metadata may be sent to OpenAI or Anthropic (Claude) for this classification; no
+audio is sent by this feature. Changed titles or descriptions, or a deliberate topic-quality upgrade, may be
 classified again within the shared processing budget.
 
 ### Retention
@@ -494,7 +528,9 @@ before refreshing.
 **What is sent:** the guest's name or matching page title goes to Wikipedia
 (`en.wikipedia.org`). The public Wikidata item ID linked from that page goes to Wikidata
 (`www.wikidata.org`) to verify that the page describes a human, independently of the
-wording of its description. Both are operated by the Wikimedia Foundation — not by us.
+wording of its description. When the article has no lead photo, the same item ID is used
+to ask Wikidata for the portrait it lists, and that image's public file name goes back to
+Wikipedia for a thumbnail. Both are operated by the Wikimedia Foundation — not by us.
 No episode, podcast, account, device or install identifier is sent. Wikimedia sees your
 IP address and can infer which public person was looked up; its privacy policy governs
 those requests.
@@ -512,8 +548,8 @@ Existing photos and bios remain available if a refresh fails.
   policy governs that data. Nothing about it reaches us.
 * **Wikimedia Foundation (Wikipedia and Wikidata).** Guest photos & bios are always
   enabled (Section 5a). Receives a guest name/page title, its linked
-  public Wikidata item ID and your IP address; no episode, podcast or listening history
-  is sent.
+  public Wikidata item ID, the public file name of a portrait Wikidata lists for them and
+  your IP address; no episode, podcast or listening history is sent.
 * **Podcast publishers and hosts.** Searching, refreshing feeds, streaming and downloading
   connect your device directly to the publisher's servers. Those servers see your IP
   address and request headers, as they would with any podcast app. Their privacy policies
@@ -535,6 +571,10 @@ Existing photos and bios remain available if a refresh fails.
   link opens (Section 4b). Like any web host it sees the IP address and browser details of
   whoever opens the site, and GitHub's privacy statement governs that data. It never
   receives the addresses in a shared link.
+* **AI and speech-to-text services (OpenAI, Anthropic, Deepgram, DeepInfra and Groq).**
+  Our ad-analysis service sends them public episode audio, transcripts, descriptions and
+  show details (Sections 3 and 5). Your app never connects to them, and nothing that
+  identifies you, such as your install ID, is sent to them.
 * **Google Cast, DLNA and AirPlay.** Discovering and controlling speakers or TVs happens
   entirely over your local Wi-Fi network. Nothing about it reaches us.
 
