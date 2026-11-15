@@ -480,16 +480,27 @@
     light: "Podvo Light: a bright page with Podvo blue. Adaptive switches to it by day."
   };
 
+  // A switcher shows the screen for the picked chip. Where it has a Glass switch, each screen
+  // comes twice (data-glass="on" and "off") and the switch picks between them.
   all(".switcher").forEach(function (section) {
     var buttons = all("[data-pick]", section);
     var screens = all("[data-screen]", section);
     var note = one("[data-note]", section);
+    var glassSwitch = one("[data-glass-switch]", section);
+    var key = (one("[data-pick].is-on", section) || buttons[0]).getAttribute("data-pick");
+
+    function show() {
+      var glass = glassSwitch && glassSwitch.getAttribute("aria-checked") === "true" ? "on" : "off";
+      screens.forEach(function (img) {
+        var forGlass = img.getAttribute("data-glass");
+        img.classList.toggle("is-on",
+          img.getAttribute("data-screen") === key && (!forGlass || forGlass === glass));
+      });
+    }
+
     buttons.forEach(function (button) {
       button.addEventListener("click", function () {
-        var key = button.getAttribute("data-pick");
-        screens.forEach(function (img) {
-          img.classList.toggle("is-on", img.getAttribute("data-screen") === key);
-        });
+        key = button.getAttribute("data-pick");
         buttons.forEach(function (b) {
           var also = (b.getAttribute("data-also") || "").split(" ");
           var on = b.getAttribute("data-pick") === key || also.indexOf(key) >= 0;
@@ -497,8 +508,17 @@
           b.setAttribute("aria-selected", on ? "true" : "false");
         });
         if (note) note.textContent = NOTES[key] || "";
+        show();
       });
     });
+
+    if (glassSwitch) {
+      glassSwitch.addEventListener("click", function () {
+        var on = glassSwitch.getAttribute("aria-checked") !== "true";
+        glassSwitch.setAttribute("aria-checked", on ? "true" : "false");
+        show();
+      });
+    }
   });
 
   // ---- Tour shelf: drag sideways with a mouse (touch scrolls it already) ------------------

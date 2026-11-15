@@ -203,12 +203,12 @@
     <div class="feature-copy">
       <h3 class="shelf-title">Topics <span class="chev" aria-hidden="true"></span></h3>
       <p class="feature-big">Go straight to what you're into.</p>
-      <p>Podvo sorts a channel's whole back catalogue into topics, from broad ones like
-        Entertainment down to Documentary Film. The Joe Rogan Experience has 115 of them across
-        2,780 episodes. Pick one and the channel shows only those.</p>
+      <p>Podvo sorts a channel's whole back catalogue into topics, grouped under headings like
+        Entertainment. Pick Film and Television and its own topics open beneath it, down to
+        Documentary Film. The Joe Rogan Experience has 115 of them across 2,782 episodes.</p>
     </div>
     <figure class="phone phone-feature">
-      <img src="/assets/shots/topics.webp" alt="The Joe Rogan Experience's topics in Podvo, open at Entertainment, Film and Television, Documentary Film" width="720" height="1600" loading="lazy" decoding="async">
+      <img src="/assets/shots/topics.webp" alt="The Joe Rogan Experience's topics in Podvo: Documentary Film picked, under Film and Television in Entertainment" width="720" height="1600" loading="lazy" decoding="async">
     </figure>
   </article>
 
@@ -310,6 +310,18 @@
 
   <article class="feature feature-flip reveal">
     <div class="feature-copy">
+      <h3 class="shelf-title">Read along <span class="chev" aria-hidden="true"></span></h3>
+      <p class="feature-big">The words, as they're said.</p>
+      <p>Swipe up on the player and the transcript follows along, each line lighting up as
+        it's spoken. Under it sit the chapters, what the episode is about, and who's on it.</p>
+    </div>
+    <figure class="phone phone-feature">
+      <img src="/assets/shots/player-cards.webp" alt="Podvo's player swiped up: the transcript following along, then the chapters, on a Joe Rogan Experience episode about dinosaurs" width="720" height="1600" loading="lazy" decoding="async">
+    </figure>
+  </article>
+
+  <article class="feature reveal">
+    <div class="feature-copy">
       <h3 class="shelf-title">Watch, or just listen <span class="chev" aria-hidden="true"></span></h3>
       <p class="feature-big">The video keeps going while you browse.</p>
       <p>When a show is filmed, watch it in the player. Leave, and it shrinks into the corner
@@ -320,7 +332,7 @@
     </figure>
   </article>
 
-  <article class="feature reveal">
+  <article class="feature feature-flip reveal">
     <div class="feature-copy">
       <h3 class="shelf-title">Up Next <span class="chev" aria-hidden="true"></span></h3>
       <p class="feature-big">A queue that fills itself.</p>
@@ -342,11 +354,11 @@
     <h2 id="headers-title" class="section-title">Every channel<br><span class="dim">in its own colours.</span></h2>
     <p class="section-lede">A channel's page takes its colours from the cover. Choose how they
       show: polka dots, a soft fade, two glows or one long fade down the page.</p>
-    <div class="theme-chips" role="tablist" aria-label="Channel header art">
-      <button class="chip is-on" type="button" role="tab" aria-selected="true" aria-controls="headers-phone" data-pick="dots">Vivid dots</button>
-      <button class="chip" type="button" role="tab" aria-selected="false" aria-controls="headers-phone" data-pick="fade">Colour fade</button>
-      <button class="chip" type="button" role="tab" aria-selected="false" aria-controls="headers-phone" data-pick="gradient">Gradient fade</button>
-      <button class="chip" type="button" role="tab" aria-selected="false" aria-controls="headers-phone" data-pick="long">Long fade</button>
+    <div class="theme-chips theme-chips-four" role="tablist" aria-label="Channel header art">
+      <button class="chip is-on" type="button" role="tab" aria-selected="true" aria-controls="headers-phone" data-pick="dots" data-label="Vivid dots"><span>Vivid dots</span></button>
+      <button class="chip" type="button" role="tab" aria-selected="false" aria-controls="headers-phone" data-pick="fade" data-label="Colour fade"><span>Colour fade</span></button>
+      <button class="chip" type="button" role="tab" aria-selected="false" aria-controls="headers-phone" data-pick="gradient" data-label="Gradient fade"><span>Gradient fade</span></button>
+      <button class="chip" type="button" role="tab" aria-selected="false" aria-controls="headers-phone" data-pick="long" data-label="Long fade"><span>Long fade</span></button>
     </div>
     <p class="theme-note" data-note aria-live="polite">Bold dots in both artwork colours.</p>
   </div>
@@ -368,11 +380,13 @@
     <p class="eyebrow">Make it yours</p>
     <h2 id="looks-title" class="section-title">Your colours.<br><span class="dim">One tap apart.</span></h2>
     <p class="section-lede">Charcoal is the one you're looking at. There's pitch-black AMOLED for
-      night owls and a bright Podvo Light, or Adaptive, which goes light by day and dark at night.</p>
+      night owls and a bright Podvo Light, or Adaptive, which goes light by day and dark at night.
+      Turn on Glass and the search bar, tabs and buttons go see-through, with the page blurred
+      behind them.</p>
     <div class="theme-chips" role="tablist" aria-label="Themes">
-      <button class="chip is-on" type="button" role="tab" aria-selected="true" aria-controls="looks-phone" data-pick="amber" data-also="mint sky-blue lavender coral silver">Charcoal</button>
-      <button class="chip" type="button" role="tab" aria-selected="false" aria-controls="looks-phone" data-pick="amoled">AMOLED</button>
-      <button class="chip" type="button" role="tab" aria-selected="false" aria-controls="looks-phone" data-pick="light">Light</button>
+      <button class="chip is-on" type="button" role="tab" aria-selected="true" aria-controls="looks-phone" data-pick="amber" data-also="mint sky-blue lavender coral silver" data-label="Charcoal"><span>Charcoal</span></button>
+      <button class="chip" type="button" role="tab" aria-selected="false" aria-controls="looks-phone" data-pick="amoled" data-label="AMOLED"><span>AMOLED</span></button>
+      <button class="chip" type="button" role="tab" aria-selected="false" aria-controls="looks-phone" data-pick="light" data-label="Light"><span>Light</span></button>
     </div>
     <p class="accent-label">Charcoal's accents</p>
     <div class="accents" role="tablist" aria-label="Charcoal accent colours">
@@ -383,18 +397,30 @@
       <button class="dot dot-coral" type="button" role="tab" aria-selected="false" aria-controls="looks-phone" data-pick="coral" aria-label="Coral"></button>
       <button class="dot dot-silver" type="button" role="tab" aria-selected="false" aria-controls="looks-phone" data-pick="silver" aria-label="Silver"></button>
     </div>
+    <button class="glass-switch" type="button" role="switch" aria-checked="true" data-glass-switch>
+      <span class="glass-switch-label">Glass</span>
+      <span class="glass-switch-track" aria-hidden="true"><span class="glass-switch-thumb"></span></span>
+    </button>
     <p class="theme-note" data-note aria-live="polite">Charcoal with Amber, the one Podvo starts with.</p>
   </div>
   <div class="looks-stage reveal">
     <figure class="phone phone-looks" id="looks-phone" data-screens>
-      <img class="is-on" data-screen="amber" src="/assets/shots/accent-amber.webp" alt="Podvo's Home in Charcoal with the Amber accent" width="720" height="1600" loading="lazy" decoding="async">
-      <img data-screen="mint" src="/assets/shots/accent-mint.webp" alt="Podvo's Home in Charcoal with the Mint accent" width="720" height="1600" loading="lazy" decoding="async">
-      <img data-screen="sky-blue" src="/assets/shots/accent-sky-blue.webp" alt="Podvo's Home in Charcoal with the Sky Blue accent" width="720" height="1600" loading="lazy" decoding="async">
-      <img data-screen="lavender" src="/assets/shots/accent-lavender.webp" alt="Podvo's Home in Charcoal with the Lavender accent" width="720" height="1600" loading="lazy" decoding="async">
-      <img data-screen="coral" src="/assets/shots/accent-coral.webp" alt="Podvo's Home in Charcoal with the Coral accent" width="720" height="1600" loading="lazy" decoding="async">
-      <img data-screen="silver" src="/assets/shots/accent-silver.webp" alt="Podvo's Home in Charcoal with the Silver accent" width="720" height="1600" loading="lazy" decoding="async">
-      <img data-screen="amoled" src="/assets/shots/theme-amoled.webp" alt="Podvo's Home in the AMOLED theme" width="720" height="1600" loading="lazy" decoding="async">
-      <img data-screen="light" src="/assets/shots/theme-light.webp" alt="Podvo's Home in the Podvo Light theme" width="720" height="1600" loading="lazy" decoding="async">
+      <img class="is-on" data-screen="amber" data-glass="on" src="/assets/shots/accent-amber-glass.webp" alt="Podvo's Home in Charcoal with the Amber accent, with Glass on" width="720" height="1600" loading="lazy" decoding="async">
+      <img data-screen="amber" data-glass="off" src="/assets/shots/accent-amber.webp" alt="Podvo's Home in Charcoal with the Amber accent" width="720" height="1600" loading="lazy" decoding="async">
+      <img data-screen="mint" data-glass="on" src="/assets/shots/accent-mint-glass.webp" alt="Podvo's Home in Charcoal with the Mint accent, with Glass on" width="720" height="1600" loading="lazy" decoding="async">
+      <img data-screen="mint" data-glass="off" src="/assets/shots/accent-mint.webp" alt="Podvo's Home in Charcoal with the Mint accent" width="720" height="1600" loading="lazy" decoding="async">
+      <img data-screen="sky-blue" data-glass="on" src="/assets/shots/accent-sky-blue-glass.webp" alt="Podvo's Home in Charcoal with the Sky Blue accent, with Glass on" width="720" height="1600" loading="lazy" decoding="async">
+      <img data-screen="sky-blue" data-glass="off" src="/assets/shots/accent-sky-blue.webp" alt="Podvo's Home in Charcoal with the Sky Blue accent" width="720" height="1600" loading="lazy" decoding="async">
+      <img data-screen="lavender" data-glass="on" src="/assets/shots/accent-lavender-glass.webp" alt="Podvo's Home in Charcoal with the Lavender accent, with Glass on" width="720" height="1600" loading="lazy" decoding="async">
+      <img data-screen="lavender" data-glass="off" src="/assets/shots/accent-lavender.webp" alt="Podvo's Home in Charcoal with the Lavender accent" width="720" height="1600" loading="lazy" decoding="async">
+      <img data-screen="coral" data-glass="on" src="/assets/shots/accent-coral-glass.webp" alt="Podvo's Home in Charcoal with the Coral accent, with Glass on" width="720" height="1600" loading="lazy" decoding="async">
+      <img data-screen="coral" data-glass="off" src="/assets/shots/accent-coral.webp" alt="Podvo's Home in Charcoal with the Coral accent" width="720" height="1600" loading="lazy" decoding="async">
+      <img data-screen="silver" data-glass="on" src="/assets/shots/accent-silver-glass.webp" alt="Podvo's Home in Charcoal with the Silver accent, with Glass on" width="720" height="1600" loading="lazy" decoding="async">
+      <img data-screen="silver" data-glass="off" src="/assets/shots/accent-silver.webp" alt="Podvo's Home in Charcoal with the Silver accent" width="720" height="1600" loading="lazy" decoding="async">
+      <img data-screen="amoled" data-glass="on" src="/assets/shots/theme-amoled-glass.webp" alt="Podvo's Home in the AMOLED theme, with Glass on" width="720" height="1600" loading="lazy" decoding="async">
+      <img data-screen="amoled" data-glass="off" src="/assets/shots/theme-amoled.webp" alt="Podvo's Home in the AMOLED theme" width="720" height="1600" loading="lazy" decoding="async">
+      <img data-screen="light" data-glass="on" src="/assets/shots/theme-light-glass.webp" alt="Podvo's Home in the Podvo Light theme, with Glass on" width="720" height="1600" loading="lazy" decoding="async">
+      <img data-screen="light" data-glass="off" src="/assets/shots/theme-light.webp" alt="Podvo's Home in the Podvo Light theme" width="720" height="1600" loading="lazy" decoding="async">
     </figure>
   </div>
 </section>
