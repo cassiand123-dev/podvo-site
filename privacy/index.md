@@ -4,7 +4,7 @@ title: Privacy Policy for Podvo
 
 # Privacy Policy for Podvo
 
-**Last Updated:** November 12, 2026
+**Last Updated:** November 22, 2026
 
 Podvo ("we", "our", "us") is a podcast player for Android and iOS. This policy explains
 exactly what the app stores, what it sends over the network, and to whom. It is written to
@@ -24,7 +24,9 @@ servers.
 | Subscriptions, queue, playback positions, history, settings, downloads, recommendation listening signals | Stay on your device, unless you turn on sync (next row) |
 | **Only if you turn on Sync with Google Drive: subscriptions, playlists, queue, Listen Later, played episodes, resume positions, the episode in the player, playback settings, and this device's model name** | **Saved in your own Google Drive, in a hidden folder only Podvo can open. Never sent to us** |
 | Podcast feeds, artwork, episode audio | Fetched directly from the publisher's servers (**except feeds in the web app** — see Section 4a) |
-| **Ad-skip lookups (podcast name, episode title, episode audio URL, episode description, country, install ID)** | **Sent to our ad-analysis service, `api.dawncast.uk`** |
+| **Ad-skip lookups (podcast name, episode title, episode audio URL, episode description, country, install ID, your Podvo Plus pass if you have one)** | **Sent to our ad-analysis service, `api.dawncast.uk`** |
+| **Podvo Plus: your Google Play purchase token, a code you type, or when you first used Podvo** | **Sent to our ad-analysis service, which checks a purchase with Google Play. Payment is handled by Google Play** |
+| **Podvo Plus on Android: a Google Play Integrity check when claiming a pass or starting a free episode (device and app integrity signals)** | **Made by Google Play on your phone; the sealed answer goes to our ad-analysis service, which asks Google to read it** |
 | **Podcast searches (search text and country code)** | **Sent to Apple Podcasts search** |
 | **First-run interest questions, and Home's Popular and topic tabs (country code, chart categories, show IDs)** | **Sent to Apple Podcasts charts and lookup; your answers stay on your device** |
 | Home's Popular list (nothing about you; the same request for everyone) | Downloaded from our server, `api.dawncast.uk` |
@@ -54,7 +56,10 @@ guest discovery and photos, which are **always enabled**.
 The following is written to your device's private app storage and is not transmitted to us:
 
 * **Subscriptions and playlists** — the podcasts you follow and any lists you create.
-* **Playback state** — positions, play queue, listening history, completed episodes.
+* **Playback state** — positions, play queue, listening history, completed episodes, and,
+  for up to 300 episodes whose clips you've seen, how far your copy of the audio runs from
+  the one Podvo analysed, so a clip's captions line up sooner next time. Clearing listening
+  history clears these.
 * **Downloaded audio** — episode files you have saved for offline listening.
 * **Preferences** — playback speed, skip intervals, sleep timer, download rules, theme.
 * **Listening statistics** — total time listened, ads skipped, episodes finished.
@@ -164,8 +169,9 @@ ask about recent episodes from shows those answers suggested.
 ### What is sent
 
 When ad-skip is enabled and you play, download, place an episode at the front of Up Next,
-open an episode's page, or Podvo prepares an episode for the Clips discovery feed, the app
-sends the following to
+open an episode's page, or Podvo prepares an episode for the Clips discovery feed, and about
+once a day for each episode you keep downloaded (so corrections to its ad data reach it), the
+app sends the following to
 `https://api.dawncast.uk/ads`:
 
 * the **podcast name** and **episode title**
@@ -173,9 +179,16 @@ sends the following to
 * the **episode description** as published in the feed
 * a **country code** (used to select the right regional ad data)
 * an **install ID** — see below
-* an **entitlement level** — currently always `early_access`
-* a **read-only flag**, only when the app is browsing (an episode's page, Clips, Snips) and
-  wants an analysis that already exists. It tells the service not to start a new one.
+* an **entitlement level** (`plus`, `founder`, `code` or `free`): what the app believes it has.
+  The service never relies on it.
+* your **Podvo Plus pass**, if you have one — see "Podvo Plus" below
+* your phone's **offset from UTC** (for example "+60 minutes"), so the week for your free
+  episodes runs Monday to Sunday in your own time. Not your location or time zone name.
+* a **play flag**, only when you start playing the episode, so the service may count it as
+  one of your free episodes that week
+* a **read-only flag**, only when the app is browsing (an episode's page, Clips, Snips) or
+  re-checking a downloaded episode, and wants an analysis that already exists. It tells the
+  service not to start a new one.
 * a snip's **start and end times**, only when a snip you saved has no captions yet and the app
   asks for the words spoken in it, or when you open a snip's length to crop it on its words
   (then with half a minute either side). It tells the service which moment of the episode
@@ -190,11 +203,22 @@ sends the following to
   just the words and chapter times, so the reply is small. It is the same value from every
   install and says nothing more about you.
 * the **start and end times of up to three clips** the Clips page cut from the episode, only
-  when a clip on screen has no captions yet. They are worked out on your phone from the
-  episode's chapters, so they tell the service which moments the app picked to show you.
+  when the clip on screen, or the next one in the feed, has no captions yet. They are worked
+  out on your phone from the episode's chapters, so they tell the service which moments the
+  app picked to show you.
 * a **fingerprint format** (`envelope_v1`), which says which form of audio fingerprint this
   version of the app can read. It is the same fixed value from every install and says
   nothing about you or what you listen to.
+
+When ad-skip is enabled and a list of episodes is on screen (a channel's episodes, Home,
+your Library), the app also asks `https://api.dawncast.uk/ads/summaries` which of those
+episodes the service has already analysed, so each row can say how many ads ad skip will
+pass over ("3 ads · 2 min"). That request carries only the **audio URLs** of the episodes
+being shown (at most 50 at a time), with the install ID and entitlement level described
+here. It is not sent for episodes this phone has already analysed, and an episode the
+service hasn't analysed is asked about again no more than every half hour. The service answers from the analyses it already
+holds: it starts no new analysis and does not keep the addresses it was asked about. The
+technical logs and operational statistics under Retention apply to it as to any request.
 
 The service replies with the positions of ads in that episode, chapter markers, captions
 (the words spoken in its clips and snips, and in the part of the episode open in the player,
@@ -209,7 +233,8 @@ Audiobooks are never sent. Chapters of an audiobook (including every LibriVox bo
 ads, so Podvo makes no ad-skip lookup for them, and they are also left out of the show
 analysis described in Section 5 (Smart Topics).
 
-**What this means in practice:** the service can infer which episodes you play, except that
+**What this means in practice:** the service can infer which episodes you play, and from the
+episode lists you look at, which channels you browse, except that
 requests for the fixed popular-channel Clips pool do not mean you followed or listened to
 those episodes. Requests for shows your answers suggested are linked to your install ID like
 any other, so the service could infer the kinds of shows you said you like. It does not receive your name, email, phone number, contacts, location,
@@ -220,7 +245,7 @@ IP-based profile, advertising ID, or any device identifier.
 The install ID is a random number generated on your device the first time ad-skip runs. It
 is **not** derived from your hardware, your Google/Apple account, or any advertising
 identifier. It is sent so the service can tell one installation from another, for rate
-limiting and, when ad-skip becomes a paid feature, to recognise a valid subscription.
+limiting and to recognise a Podvo Plus pass (below).
 The service does not store it as sent. So that no one installation can read transcripts
 faster than anyone listens to them, it keeps, for three days, a keyed hash of the install ID
 together with the episode and which parts of that episode's transcript were sent to it, and
@@ -230,14 +255,17 @@ household, or a mobile carrier's shared address) don't limit each other, it also
 keyed hash of the install ID with the first and last day it read a transcript, deleted 30
 days after the last. Transcript requests without an install ID get no transcript.
 
-You can view it and generate a fresh one at any time under **Settings > Ad skipping >
-Install ID**. Resetting it severs the link between your earlier and later lookups. Clearing app
-data or reinstalling also produces a new one.
+You can view it and generate a fresh one at any time under **Settings > About >
+Install ID**. Resetting it severs the link between your earlier and later lookups, with one
+exception: the free episodes you have used this week move to the new ID (see "Podvo Plus"
+below), so the service briefly sees both IDs in that one request. Clearing app data or
+reinstalling also produces a new one.
 
 ### Turning it off
 
-**Settings > Ad skipping > Skip ads** disables the feature. When it is off, Podvo makes no
-requests to the ad-analysis service at all. Everything else in the app continues to work.
+**Settings > About > Episode analysis** disables the feature. When it is off, Podvo makes no
+requests to the ad-analysis service at all, so there is no ad skip, and no chapters or
+transcripts from it. Everything else in the app continues to work.
 
 ### Retention
 
@@ -264,12 +292,64 @@ the first and last day an installation read a transcript, kept until 30 days aft
 contain public episode/feed identifiers and token usage, without listener identifiers,
 prompts, or transcripts. See the [service operations disclosure](https://api.dawncast.uk/privacy/operations).
 
-### Pricing
+### Podvo Plus
 
-Ad-skip is currently **free during early access: each install gets three months of ad-skip
-at no cost**. We intend to make it a paid subscription feature in future, and when the free
-period ends Podvo stops sending ad-skip lookups. That change will not alter what is described above; if
-it ever does, this policy will be updated first.
+Everything the service works out about an episode is free: chapters, captions, the transcript
+and who is on it. Skipping its ads is **Podvo Plus**, except for three free episodes a
+week: the first three with ads that you start playing each week, Monday to Sunday. Anyone who used Podvo before Plus began keeps ad
+skipping free for the rest of the 90 free days that version gave, counted from when the
+installation first ran Podvo, and Podvo can give out codes for it.
+
+The service decides who gets an episode's ad positions, from a **pass** it issues to your
+installation. A pass is a short signed string saying which kind it is (Plus, founding
+listener or code), until when, and which installation it belongs to (as a keyed hash of the
+install ID). It is stored on your device and sent with each ad-skip lookup.
+
+To issue a pass, the app sends the service your install ID and one of:
+
+* **Plus:** the purchase token Google Play gives the app when you subscribe. The service asks
+  Google whether that subscription is active and when it renews. It receives no card details,
+  name or email: Google Play handles the payment.
+* **A code** you typed under **Settings > Ad skipping > Redeem a code**.
+* **Founding listener:** the date this installation first ran Podvo.
+* **A pass you already have**, after you reset your install ID, so it can move to the new one.
+* **Your previous install ID**, once, after you reset it, so the free episodes you have used
+  this week move to the new one. The service moves them and keeps nothing under the old ID.
+
+What the service keeps, never with a raw install ID or a raw purchase token:
+
+* for each Plus purchase, a hash of its token, when it renews, and keyed hashes of the
+  installations using it (at most five), until 30 days after it ends;
+* for each code, its label, how many times it was used, and keyed hashes of the installations
+  that used it, for the life of the code;
+* for founding listeners, a keyed hash of the installation and when it claimed;
+* for the free episodes, a keyed hash of the installation, the week, and which episodes were
+  the free ones, for ten days;
+* how many times a pass was moved to a new install ID this month.
+
+Plus is sold only through Google Play, which bills you and lets you cancel at any time under
+**Settings > Ad skipping > Manage subscription** or in Google Play. Google's privacy policy
+covers the payment.
+
+#### Checking the app is genuine (Android)
+
+So that a modified copy of the app can't make up new installations to collect free episodes or
+founding-listener passes, the Android app uses **Google Play Integrity** when it asks for a
+pass and when it starts an episode that could use one of the week's free episodes (not when you
+already hold a pass). Google Play services on your phone looks at the device and at how Podvo
+was installed, and gives the app a sealed answer that only Google can open. The answer is made
+for that one request: it covers a hash of the request and your install ID, not the request
+itself. The app sends it to our service, which asks Google to open it and reads only whether
+Google Play recognises this copy of Podvo and whether the device passes Google's integrity
+checks. Google's own processing is described in its
+[Play Integrity documentation](https://developer.android.com/google/play/integrity/overview) and the
+[Google Privacy Policy](https://policies.google.com/privacy).
+
+The service keeps none of the answer. When a check fails it logs that it failed and why (for
+example "the device does not meet device integrity"), with no install ID or token. If the check
+can't run (no Google Play, or no connection to it), the app goes without it. A request that
+fails or lacks the check may be given no free episode and no new pass; it still gets
+everything else. The iPhone and web apps don't use it.
 
 ---
 
@@ -302,11 +382,15 @@ If Podcast Index is unavailable, the same request falls back once more to
 The server fallback happens only on a directory lookup that Apple could not answer.
 
 Home and “More like this” can also perform a small number of automatic directory
-lookups using public podcast categories, such as Comedy or Science, from shows in your
-library or the show you are browsing. The category text is sent through the same Apple
-search and, if needed, server fallback described above. Providers also receive the normal
-IP address and request headers associated with an internet request. Listening records,
-completion history, personalised scores and recommendation visibility are not included.
+lookups using public podcast categories, such as Comedy or Basketball, from shows in your
+library, shows you have listened to or asked to see more like, or the show you are
+browsing. A show's categories come from its directory entry or from its own public RSS
+feed. The category text is sent through the same Apple search and, if needed, server
+fallback described above. Providers also receive the normal IP address and request headers
+associated with an internet request. Listening records, completion history, personalised
+scores and recommendation visibility are not included. Your “Not interested” choices, the
+clips you save to Listen Later from Clips, and how long you watch each clip in Clips are
+kept on your device to rank recommendations and are never sent.
 Suggestions fetch a bounded selection of public RSS feeds directly from publishers
 (through the feed proxy on web), and cache metadata on the device. Maximum data-saving
 mode skips these optional discovery requests on a metered connection.
@@ -563,6 +647,10 @@ Existing photos and bios remain available if a refresh fails.
 * **YouTube.** Video podcast playback uses YouTube's official embedded player. Your
   interaction with it is governed by [YouTube's Terms of Service](https://www.youtube.com/t/terms)
   and the [Google Privacy Policy](https://policies.google.com/privacy).
+* **Google Play Integrity (Android, Podvo Plus).** When the app asks for a pass or starts an
+  episode that could use a free one, Google Play services on your phone checks the device and
+  the app, and Google reads the result for our service (Section 3, "Checking the app is
+  genuine"). Google's privacy policy governs what Google Play services collects to do this.
 * **Google Play (install referrer).** On its first start Podvo asks the Play Store app on
   your phone how it was installed. Only an install from a shared link's page answers with
   anything: that link's addresses (Section 4b). Podvo uses them to open what was shared and
