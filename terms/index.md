@@ -47,11 +47,14 @@ takes the payment and renews Plus each month until you cancel.
 - **If Plus stops:** we'll stop renewing it and say so in the app.
 
 **Founding listeners and codes.** If you used Podvo before Plus began, ad skipping stays
-free for you on that phone once you update. If you then reinstall or change phone, email us
-and we'll send you a code. We may also give out Podvo codes that make ad skipping free for
+free on that phone for the rest of the 90 free days the earlier version gave you, counted
+from when you first opened Podvo. If you reinstall or change phone during them, email us and
+we'll send you a code. We may also give out Podvo codes that make ad skipping free for
 a time or for good. Codes are gifts: they can't be sold or exchanged for money.
 
-Ad skipping isn't perfect: it can miss an advert or skip a few seconds of the programme.
+Ad skipping isn't perfect. Podvo finds adverts by listening, so a brand-new episode can
+take a few minutes to check, and now and then it can miss an advert or skip a few seconds of
+the programme.
 
 ## 4. Your data
 
