@@ -4,7 +4,7 @@ title: Terms of Service for Podvo
 
 # Terms of Service for Podvo
 
-**Last Updated:** November 18, 2026
+**Last Updated:** November 22, 2026
 
 These terms cover your use of Podvo, the podcast app, and this website. By using Podvo
 you agree to them. Podvo is made by Cassian D'Arcy in the United Kingdom ("we", "us").
